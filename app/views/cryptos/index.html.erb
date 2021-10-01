@@ -1,0 +1,60 @@
+<h1>My Cryptocurrency</h1>
+<br/>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Current Price</th>
+      <th>1hr %</th>
+      <th>24hr %</th>
+      <th>7d %</th>
+      <th>Current Value</th>
+      <th>Total Paid</th>
+      <th>Profit / Loss</th>
+      <th>Cost Paid Per</th>
+      <th>Amount Owned</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cryptos.each do |crypto| %>
+     <% if crypto.user_id == current_user.id %>
+        <% if crypto.symbol %>
+          <%  crypto.symbol = crypto.symbol.upcase %>
+        <% end %>
+        <tr>
+        <% for x in @lookup_crypto['data'] %>
+          <% if crypto.symbol == x['symbol'] %>
+              <td><%= x['cmc_rank'] %></td>
+              <td><%=link_to x['name'], crypto %>: <%= crypto.symbol %></td>
+              <td>$<%= number_with_precision(x['quote']['USD']['price'], :precision => 5, :delimiter => ',') %></td>
+
+              <td><%= number_to_percentage(x['quote']['USD']['percent_change_1h']) %></td>
+              <td><%= number_to_percentage(x['quote']['USD']['percent_change_24h']) %></td>
+              <td><%= number_to_percentage(x['quote']['USD']['percent_change_7d']) %></td>
+
+              <td>$<%= number_with_precision(x['quote']['USD']['price'].to_d * crypto.amount_owned, :precision => 5, :delimiter => ',') %></td>
+              <td><%= number_to_currency(crypto.cost_per * crypto.amount_owned) %></td>
+              <td><%= number_to_currency((x['quote']['USD']['price'].to_d * crypto.amount_owned) - (crypto.cost_per * crypto.amount_owned), :precision => 5, :delimiter => ',') %></td>
+              <% @profit_loss += (x['quote']['USD']['price'].to_d * crypto.amount_owned) - (crypto.cost_per * crypto.amount_owned) %>
+          <% end %>
+        <% end %>
+          <td><%= number_to_currency(crypto.cost_per) %></td>
+          <td><%= crypto.amount_owned %></td>
+          <!-- <td><%= link_to 'Show', crypto %></td> -->
+          <!-- <td><%= link_to 'Edit', edit_crypto_path(crypto) %></td> -->
+          <!-- <td><%= link_to 'Destroy', crypto, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br/><br/>
+
+<strong>My Profit / Loss: </strong> <%= number_to_currency(@profit_loss, :precision => 2, :delimiter => ',') %>
+
+<br/><br/>
+
+<%= link_to 'New Crypto', new_crypto_path %>

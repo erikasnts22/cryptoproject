@@ -9,12 +9,12 @@ default: &default
 
 development:
   <<: *default
-  database: cryptoapp_dev
+  database: cryptoprojectapp_dev
   
 test:
   <<: *default
-  database: cryptoapp_test
+  database: cryptoprojectapp_test
 
 production:
   <<: *default
-  database: cryptoapp__prod
+  database: cryptoprojectapp__prod
