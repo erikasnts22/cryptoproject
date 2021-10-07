@@ -1,18 +1,27 @@
-<p>
-  <strong>Symbol:</strong>
-  <%= @crypto.symbol %>
-</p>
+<div class="card">
+  <div class="card-header">
+    Panel title
+  </div>
 
-<p>
-  <strong>Cost per:</strong>
-  <%= @crypto.cost_per %>
-</p>
+  <div class="card-body">
+    <h1><%= @crypto.symbol.upcase %></h1>
+  </p>
 
-<p>
-  <strong>Amount owned:</strong>
-  <%= @crypto.amount_owned %>
-</p>
+  <p>
+    <strong>Cost per:</strong>
+    <%= @crypto.cost_per %>
+  </p>
 
-<%= link_to 'Edit', edit_crypto_path(@crypto) %> |
-<%= link_to 'Delete', crypto_path(@crypto), method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', cryptos_path %>
+  <p>
+    <strong>Amount owned:</strong>
+    <%= @crypto.amount_owned %>
+  </p>
+  </div>
+
+  <div class="card-footer">
+  <%= link_to 'Edit', edit_crypto_path(@crypto) %> |
+  <%= link_to 'Delete', crypto_path(@crypto), method: :delete, data: { confirm: 'Are you sure?' } %> |
+  <%= link_to 'Back', cryptos_path %>
+  </div>
+</div>
+
