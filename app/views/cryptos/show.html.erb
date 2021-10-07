@@ -1,20 +1,33 @@
+<% for x in @show_crypto['data'] %>
+  <% if @crypto.symbol.upcase == x['symbol'] %>
+      <% crypto_name = x['name'] %>
+      <% crypto_price = number_with_precision(x['quote']['USD']['price'], :precision => 5, :delimiter => ',') %>
+      <% crypto_rank = x['cmc_rank'] %>
+  <% end %>
+<% end %>
+
 <div class="card">
   <div class="card-header">
-    Panel title
+    <h3><%= crypto_name %></h3>
   </div>
 
   <div class="card-body">
     <h1><%= @crypto.symbol.upcase %></h1>
+
+  <p>
+    <strong>Current Price: </strong>$<%= crypto_price %>
   </p>
 
   <p>
-    <strong>Cost per:</strong>
-    <%= @crypto.cost_per %>
+    <strong>Rank: </strong><%= crypto_rank %>
   </p>
 
   <p>
-    <strong>Amount owned:</strong>
-    <%= @crypto.amount_owned %>
+    <strong>Cost per: </strong><%= number_to_currency(@crypto.cost_per) %>
+  </p>
+
+  <p>
+    <strong>Amount owned: </strong><%= number_to_currency(@crypto.amount_owned) %>
   </p>
   </div>
 
