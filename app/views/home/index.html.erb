@@ -1,10 +1,21 @@
+<% @coins %>
+
+<% for x in @coins['data'] %>
+    <% for coin in @my_coins %>
+        <% if coin == x['symbol'] %>
+            <% x['name'] %> <% x['quote']['USD']['price'] %><br/>
+            <% @coinlist.push(x['quote']['USD']['price']) %>
+        <% end %>
+    <% end %>
+<% end %>
+
 <div class="row row-cols-3 row-cols-md-4 g-4">
   <div class="col">
     <div class="card"><br/>
       <%=image_tag("btc.png", size: "65x65", class: "mx-auto d-block", alt: "BITCOIN")%>
       <div class="card-body">
         <h5 class="card-title text-center">Bitcoin</h5>
-        <h6 class="card-title text-center">(BTC)</h6>
+        <h6 class="card-title text-center">(BTC) <%= number_to_currency(@coinlist.fetch(0))%></h6>
         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
       </div>
     </div>
@@ -14,18 +25,8 @@
       <%=image_tag("eth.png", size: "65x65", class: "mx-auto d-block", alt: "ETHEREUM")%>
       <div class="card-body">
         <h5 class="card-title text-center">Ethereum</h5>
-        <h6 class="card-title text-center">(ETH)</h6>
+        <h6 class="card-title text-center">(ETH) <%= number_to_currency(@coinlist.fetch(1))%></h6>
         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card"><br/>
-      <%=image_tag("xrp.png", size: "65x65", class: "mx-auto d-block", alt: "RIPPLE")%>
-      <div class="card-body">
-        <h5 class="card-title text-center">Ripple</h5>
-        <h6 class="card-title text-center">(XRP)</h6>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
       </div>
     </div>
   </div>
@@ -34,8 +35,8 @@
       <%=image_tag("ada.png", size: "65x65", class: "mx-auto d-block", alt: "CARDANO")%>
       <div class="card-body">
         <h5 class="card-title text-center">Cardano</h5>
-        <h6 class="card-title text-center">(ADA)</h6>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <h6 class="card-title text-center">(ADA) <%= number_to_currency(@coinlist.fetch(2))%></h6>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
       </div>
     </div>
   </div>
@@ -44,7 +45,7 @@
       <%=image_tag("bnb.png", size: "65x65", class: "mx-auto d-block", alt: "BINANCE")%>
       <div class="card-body">
         <h5 class="card-title text-center">Binance Coin</h5>
-        <h6 class="card-title text-center">(BNB)</h6>
+        <h6 class="card-title text-center">(BNB) <%= number_to_currency(@coinlist.fetch(3))%></h6>
         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
       </div>
     </div>
@@ -54,7 +55,17 @@
       <%=image_tag("usdt.png", size: "65x65", class: "mx-auto d-block", alt: "TETHER")%>
       <div class="card-body">
         <h5 class="card-title text-center">Tether</h5>
-        <h6 class="card-title text-center">(USDT)</h6>
+        <h6 class="card-title text-center">(USDT) <%= number_to_currency(@coinlist.fetch(4))%></h6>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card"><br/>
+      <%=image_tag("xrp.png", size: "65x65", class: "mx-auto d-block", alt: "RIPPLE")%>
+      <div class="card-body">
+        <h5 class="card-title text-center">Ripple</h5>
+        <h6 class="card-title text-center">(XRP) <%= number_to_currency(@coinlist.fetch(5))%></h6>
         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
       </div>
     </div>
@@ -64,7 +75,7 @@
       <%=image_tag("sol.png", size: "65x65", class: "mx-auto d-block", alt: "SOLANA")%>
       <div class="card-body">
         <h5 class="card-title text-center">Solana</h5>
-        <h6 class="card-title text-center">(SOL)</h6>
+        <h6 class="card-title text-center">(SOL) <%= number_to_currency(@coinlist.fetch(6))%></h6>
         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
       </div>
     </div>
@@ -74,7 +85,7 @@
       <%=image_tag("doge.png", size: "65x65", class: "mx-auto d-block", alt: "DOGECOIN")%>
       <div class="card-body">
         <h5 class="card-title text-center">Dogecoin</h5>
-        <h6 class="card-title text-center">(DOGE)</h6>
+        <h6 class="card-title text-center">(DOGE) <%= number_to_currency(@coinlist.fetch(7))%></h6>
         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
       </div>
     </div>
@@ -83,13 +94,4 @@
 
 <br/><br/>
 
-<% @coins %>
-
-<% for x in @coins['data'] %>
-    <% for coin in @my_coins %>
-        <% if coin == x['symbol'] %>
-            <%= x['name'] %>: $<%= x['quote']['USD']['price'] %><br/>
-        <% end %>
-    <% end %>
-<% end %>
 

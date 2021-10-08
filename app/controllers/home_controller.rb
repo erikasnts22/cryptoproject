@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
+
   def index
+    #@cryptos = Crypto.all
     require 'net/http'
     require 'json'
 
@@ -8,7 +10,8 @@ class HomeController < ApplicationController
     @uri = URI(@url)
     @response = Net::HTTP.get(@uri)
     @coins = JSON.parse(@response)
-    @my_coins = ["BTC", "XRP", "ADA", "XLM", "STEEM"]
+    @my_coins = ["BTC", "ETH", "XRP", "ADA", "BNB", "USDT", "SOL", "DOGE"]
+    @coinlist = []
   end
 
   def lookup
@@ -37,6 +40,5 @@ class HomeController < ApplicationController
 
   def about
   end
-
 
 end
